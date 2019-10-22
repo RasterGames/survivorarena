@@ -1,3 +1,0 @@
-# survivorarena
-
-hello world
