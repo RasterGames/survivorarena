@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf8">
+		<meta name="description" content="Multiplayer 2D Surivor Arena">
+		<meta name="viewport" content="width=device-width, target-densitydpi=device-dpi, initial-scale=0.55, maximum-scale=1, user-scalable=no">
+		<meta name="keywords" content="HTML,HTML5,game,JavaScript,free,opensource,open source,github,nodejs,multiplayer,download">
+		<meta name="author" content="Raster Games">
+		<link rel="icon" href="img/icon.png">
+		<title>Survivor Arena</title>
+		<link rel="stylesheet" type="text/css" href="css/style.min.css">
+	</head>
+	<body onmousemove="mouseMove(event);">
+
+		<div class="canvas-container">
+		<div id="overlay"></div>
+		<div id="scoreDiv" class="noselect ingame-ui">undefined</div>
+		<div id="powerupCountdown" class="noselect ingame-ui">
+				Powerup time left: 
+				<div id="powerupCountdownTimer">
+					0
+				</div>
+		</div>
+		<div id="helpers" class="noselect">
+			<a href="#"><img class="noselect ingame-ui icon" id="ranking" src="img/ranking.png" /></a>
+			<a href="#"><img class="noselect ingame-ui icon" id="help" src="img/help.png" /></a>
+			<!-- a href="#"><img class="noselect ingame-ui icon" id="settings" src="img/settings.png" /></a -->
+		</div>
+		<div id="register-box" class="main">
+			<span>Register</span>
+			<div id="register-content">
+				<form onsubmit="register(); return false;" method="post">
+					<label>Username: <span class="error name">Username already taken or too short</span></label><input type="text" name="name" value="" pattern="^[a-zA-Z0-9]{3,16}$" placeholder="3-16 characters, Alphanumeric only " >
+					<label>Email: <span class="error email">Invalid email or already been used</span></label><input type="email" name="email" value="" placeholder="Enter your email address" >
+					<label>Password: <span class="error password">Invalid password or too short</span></label><input type="password" name="pass" value="" placeholder="Minimum 3 characters" pattern=".{3,}" >
+					<p class="center">By signing up and accessing this site, you are hereby agreeing to our latest Terms and Privacy Policy.</p>
+					<div class="center"><input type="submit" name="submit" value="Register" onclick="$('.error').hide();"></div>
+					<p class="center"><a href="#login" onclick="$('#register-box').hide();$('#login-box').show();" class="link">Already have an account? Login</a></p>
+				</form>
+			</div>		
+		</div>		
+		<div id="login-box" class="main">
+			<span>Login</span>
+			<div id="login-content">
+				<form onsubmit="login(); return false;" method="post">
+					<br>
+					<label>Username: <span class="error name">Invalid username</span></label><input type="text" name="loginName" value="">
+					<br><br>
+					<label>Password: <span class="error password">Invalid password</span></label><input type="password" name="loginPass" value="">
+					<p></p>
+					<div class="center"><input type="submit" name="submit" value="Login" onclick="$('.error').hide();"></div>
+					<p></p>
+					<p class="center"><a href="#register" onclick="$('#login-box').hide();$('#register-box').show();suggestUserName()" class="link">Create an Account</a></p>
+					
+				</form>
+			</div>		
+		</div>
+		<div id="rank-box" class="main">
+				<span>Ranking</span>				
+				<div id="rank-content">					
+				</div>		
+		</div>		
+		<div id="help-box">
+			<span>Survival Guide</span>
+			<div id="help-content">
+					<h3>Game Mechanics</h3>
+					<p>Play for survival, rewards, items and glory as you pit yourself with hostile enemies and other players in this multiplayer Surivor Arena!</p>
+					
+					<h3>Game Controls</h3>
+					<ul><li>Mouse for Aim. </li><li>Mouse Left or Press &lt;Space&gt; for Fire. </li><li>W,A,S,D or ⇦ ⇧ ⇩ ⇨ Keys for Movement</li></ul>
+					
+					<h3>Power Ups</h3>
+					<p>Get power ups to make you invulnerable for a reasonable amount of time! These items can be obtained in the arena or as a reward.</p>
+					
+					<h3>Weapons and Gear</h3>
+					<p><em>*Arm yourself for survival by getting better weapons and gear. </em><br></p>
+
+					<h3>Survivor Ranking</h3>
+					<p>The current game ranking is based on your score or game points. Each time you ran out of health and respawned, your game points will decrease by a third of your last total score. If you have 1000GP or score and then you die on the game, your score will now be set to 500. Your level, game items and gears may also affect your score or game points after respawn.&nbsp; The&nbsp;minimum&nbsp;score&nbsp;to&nbsp;get&nbsp;ranked&nbsp;is&nbsp;100.</p>
+					
+					<p>On future versions, top ranking will also be based on most killed enemies, players and other top stats.</p>
+					
+					<h3>Saving Game Progress</h3>
+					
+					<p>Save your game progress and get your player an extraction point by acquiring <em>*Radio gears</em>. This saves your current score. Your score will also be saved everytime your player dies from the game, but will be decreased. See Survivor Ranking above.</p>
+					<p><em>*This is currently in development.</em><br></p>
+					
+			</div>
+		</div>
+		<canvas tabindex="1" id="ctx" width="1200" height="600"></canvas>		
+		</div>
+		<div class="sponsors noselect">
+			<!-- img src="img/Leaderboard-728x90.jpg" / -->
+			<!-- Raster Games Responsive 2 -->
+			
+      <!-- ADSENSE HERE -->
+      
+		</div>				
+		
+
+		<div id="messages"></div>
+		<div id="death" class="noselect">
+			<div id="dead" class="noselect">
+				You are dead
+			</div>
+			<br>
+			<div id="countdown" class="noselect">0</div>
+		</div>
+		
+
+		<script src="js/jquery-3.3.1.min.js"></script>
+		<script src="js/socket.io.js"></script>
+		<script src="js/cookies.js"></script>
+		<script src="js/game.min.js"></script>
+	</body>
+</html>
